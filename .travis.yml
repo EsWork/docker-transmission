@@ -1,0 +1,15 @@
+sudo: required
+language: bash
+services: docker
+dist: trusty
+
+branches: 
+  only: 
+    - master
+
+before_install:
+  - docker build -t eswork/transmission .
+  
+script: 
+  - docker run --name transmission -d --restart=always eswork/transmission; sleep 5
+  - docker ps -a | grep -q transmission
